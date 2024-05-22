@@ -3,7 +3,7 @@ const lastSentTime = {};
 let recognizedFaces = {};
 // Pre-load models
 Promise.all([
-  faceapi.nets.tinyFaceDetector.loadFromUri("./models"),
+  faceapi.nets.mtcnn.loadFromUri("./models"),
   faceapi.nets.faceLandmark68Net.loadFromUri("./models"),
   faceapi.nets.faceRecognitionNet.loadFromUri("./models"),
   faceapi.nets.ssdMobilenetv1.loadFromUri("./models")
@@ -55,7 +55,7 @@ video.addEventListener("play", () => {
 
       setInterval(async () => {
         const detections = await faceapi
-          .detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
+          .detectAllFaces(video, new faceapi.MtcnnOptions())
           .withFaceLandmarks()
           .withFaceDescriptors();
         const resizedDetections = faceapi.resizeResults(
